@@ -1,0 +1,62 @@
+{% extends 'IPSSymfonyProjectBundle::base.html.twig' %}
+{% block content%}
+        <h1>{{task.NAME}}</h1>{% if task.STATUT==0 %}<a href="/end/task/{{task.ID}}" style="float:right;"><button class="btn btn-success">Validate</button></a></br></br>{% else %}<a href="" style="float:right;"><button class="btn btn-seccess disabled">Validate</button></a></br></br>{% endif %}
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td width="45%"><b>Project:</b></td>
+                    <td width="55%"><a href="/show/project/{{project.ID}}">{{project.NAME}}</a></td>
+                </tr>
+                <tr>
+                    <td width="45%"><b>Section:</b></td>
+                    <td width="55%"><a href="/show/section/{{section.ID}}">{{section.NAME}}</a></td>
+                </tr>
+                <tr>
+                    <td width="45%"><b>Importance:</b></td>
+                    <td width="55%">{{task.IMPORTANCE}}</td>
+                </tr>
+                <tr>
+                    <td width="45%"><b>In charge:</b></td>
+                    <td width="55%">{{task.INCHARGE}}</td>
+                </tr>
+                <tr>
+                    <td width="45%"><b>Add date:</b></td>
+                    <td width="55%">{{ADDDATE}}</td>
+                </tr>
+                <tr>
+                    <td width="45%"><b>End date:</b></td>
+                    <td width="55%">{{ENDDATE}}</td>
+                </tr>
+                <tr>
+                    <td width="45%"><b>Progress:</b></td>
+                    <td width="55%">{{task.STATUT}}%</td>
+                </tr>
+                <tr>
+                    <td width="45%"><b>Content:</b></td>
+                    <td width="55%">{{task.COMMENT}}</td>
+                </tr>
+                <tr>
+                    <td width="45%"><b>References:</b></td>
+                    <td width="55%">
+                        {% for reference in references%}
+                        <a href="{{asset(reference.URL)}}" target=_blank>{{reference.URL}}</a></br>
+                        {% endfor %}
+                        <a href="/add/reference/{{task.ID}}"><button class="btn btn-info">Add references</button></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="45%"><b>Works:</b></td>
+                    <td width="55%">
+                        {% for work in works %}
+                        {% if work.TYPE=='file' %}
+                        <a href="{{asset(work.URL)}}" target=_blank>{{work.URL}}</a></br>
+                        {% else %}
+                        <a href="/show/work/{{work.ID}}" target=_blank>See Work</a></br>
+                        {% endif %}
+                        {% endfor %}
+                        <a href="/add/work/{{task.ID}}"><button class="btn btn-info">Submit works</button></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+{% endblock %}

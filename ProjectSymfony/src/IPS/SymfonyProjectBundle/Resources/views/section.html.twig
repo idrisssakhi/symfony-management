@@ -1,0 +1,74 @@
+{% extends 'IPSSymfonyProjectBundle::base.html.twig' %}
+{% block content%}
+        <h1>{{section.NAME}}</h1>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td width="45%"><b>Project:</b></td>
+                    <td width="55%"><a href="/show/project/{{project.ID}}">{{project.NAME}}</a></td>
+                </tr>
+                <tr>
+                    <td width="45%"><b>Importance:</b></td>
+                    <td width="55%">{{section.IMPORTANCE}}</td>
+                </tr>
+                <tr>
+                    <td width="45%"><b>Add date:</b></td>
+                    <td width="55%">{{add}}</td>
+                </tr>
+                <tr>
+                    <td width="45%"><b>End date:</b></td>
+                    <td width="55%">{{end}}</td>
+                </tr>
+                <tr>
+                    <td width="45%"><b>Progress:</b></td>
+                    <td width="55%">
+                        {% if section.STATUT<=24 %}
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{section.STATUT}}"
+                            aria-valuemin="0" aria-valuemax="100" style="width:{{section.STATUT}}%">
+                                {{section.STATUT}}% Complete
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if section.STATUT>=24 and section.STATUT<=49 %}
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{section.STATUT}}"
+                            aria-valuemin="0" aria-valuemax="100" style="width:{{section.STATUT}}%">
+                                {{section.STATUT}}% Complete
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if section.STATUT<=99 and section.STATUT>=50 %}
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{section.STATUT}}"
+                            aria-valuemin="0" aria-valuemax="100" style="width:{{section.STATUT}}%">
+                                {{section.STATUT}}% Complete
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if section.STATUT==100 %}
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{section.STATUT}}"
+                            aria-valuemin="0" aria-valuemax="100" style="width:{{section.STATUT}}%">
+                                {{section.STATUT}}% Complete
+                            </div>
+                        </div>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="45%"><b>Content:</b></td>
+                    <td width="55%">{{section.COMMENT}}</td>
+                </tr>
+                <tr>
+                    <td width="45%"><b>Tasks:</b></td>
+                    <td width="55%">
+                        {% for task in tasks%}
+                        <a href="/show/task/{{task.ID}}">{{task.NAME}}</a></br>
+                        {% endfor %}
+                        <a href="/add/task/{{section.ID}}"><button class="btn btn-info">Add tasks</button></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+{% endblock %}
